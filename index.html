@@ -26,11 +26,16 @@
       --bg-purple-md:#251555;
       --bg-purple-lt:#2D1B69;
 
-      /* Familias — violeta */
-      --violeta:     #7C3AED;
-      --violeta-md:  #8B5CF6;
+      /* Evolucione brand palette */
+      --violeta:     #651FFF;
+      --violeta-md:  #7C3AED;
       --violeta-lt:  #A78BFA;
       --violeta-xs:  #C4B5FD;
+      --rosa:        #FF0C99;
+      --rosa-glow:   rgba(255,12,153,0.25);
+      --cian:        #15FFFF;
+      --cian-glow:   rgba(21,255,255,0.18);
+      --navy:        #0D0036;
 
       /* Neutros — UI/UX Pro Max: rgba borders más refinados */
       --borde:       rgba(255,255,255,0.08);
@@ -134,7 +139,7 @@
       display: flex; align-items: center; gap: 10px;
     }
     .nav__logo img {
-      height: 36px; width: auto; display: block;
+      height: 56px; width: auto; display: block;
     }
     .nav__logo-text {
       font-size: 21px; font-weight: 800;
@@ -925,7 +930,136 @@
     @media (min-width: 769px) {
       .sticky-cta-mobile { display: none !important; }
     }
-  </style>
+  
+    /* ─── VIDEO POSTER / PLAY BUTTON ───────────────────────── */
+    .video-poster {
+      position: relative; cursor: pointer;
+      border-radius: 14px; overflow: hidden;
+      aspect-ratio: 16/9;
+      background: #000;
+    }
+    .video-poster img {
+      width: 100%; height: 100%; object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease, filter 0.3s ease;
+      filter: brightness(0.75);
+    }
+    .video-poster:hover img { transform: scale(1.02); filter: brightness(0.65); }
+
+    .video-play-btn {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .video-play-btn svg {
+      background: none;
+      filter: drop-shadow(0 0 0 transparent);
+    }
+    .video-play-btn::before {
+      content: '';
+      width: 80px; height: 80px;
+      background: linear-gradient(135deg, var(--violeta) 0%, var(--rosa) 100%);
+      border-radius: 50%;
+      position: absolute;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      box-shadow: 0 0 0 0 var(--rosa-glow);
+    }
+    .video-poster:hover .video-play-btn::before {
+      transform: scale(1.12);
+      box-shadow: 0 0 40px 12px var(--rosa-glow);
+    }
+    .video-play-btn svg {
+      position: relative; z-index: 1;
+      color: #fff;
+      width: 34px; height: 34px;
+      margin-left: 4px; /* optical centering */
+    }
+    .video-play-label {
+      position: absolute; bottom: 18px; left: 0; right: 0;
+      text-align: center;
+      font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.88);
+      letter-spacing: 0.03em;
+      text-shadow: 0 1px 8px rgba(0,0,0,0.6);
+    }
+    .hero__video iframe {
+      width: 100%; height: 100%;
+      position: absolute; inset: 0;
+      border: none; border-radius: 14px;
+    }
+    .hero__video-active {
+      position: relative;
+      aspect-ratio: 16/9;
+    }
+
+    /* ─── PILL VARIANTES ────────────────────────────────────── */
+    .pill--rosa {
+      background: rgba(255,12,153,0.12);
+      border: 1px solid rgba(255,12,153,0.30);
+      color: #FF5CC8;
+    }
+    .pill--cian {
+      background: rgba(21,255,255,0.08);
+      border: 1px solid rgba(21,255,255,0.25);
+      color: #15FFFF;
+    }
+
+    /* ─── REQ CARDS — SVG icon color ───────────────────────── */
+    .req-card__icono {
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 12px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    /* req-card icons: white by default via --texto */
+
+    /* ─── STATS — acento rosa ───────────────────────────────── */
+    .stat-rosa { color: var(--rosa) !important; }
+    .stat-cian { color: var(--cian) !important; }
+
+    /* ─── NAV ajuste altura logo ────────────────────────────── */
+    @media (max-width: 480px) {
+      .nav__logo img { height: 40px !important; }
+      .video-play-btn::before { width: 64px; height: 64px; }
+      .video-play-btn svg { width: 26px; height: 26px; }
+    }
+
+
+    /* ─── ICONOS SVG ABSTRACTOS ─────────────────────────────── */
+    .prob-card__icon svg,
+    .mc-opt__icon svg {
+      width: 22px; height: 22px;
+      flex-shrink: 0;
+    }
+    .prob-card__icon {
+      color: rgba(255,255,255,0.80);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 12px;
+    }
+    .prob-card__icon svg { width: 32px; height: 32px; }
+
+    .mc-opt__icon {
+      color: rgba(255,255,255,0.70);
+      display: flex; align-items: center; justify-content: center;
+      width: 28px; height: 28px;
+      flex-shrink: 0;
+    }
+    .mc-opt:hover .mc-opt__icon { color: rgba(255,255,255,0.95); }
+
+    .mc-result__icon {
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 4px;
+    }
+    .mc-result--si .mc-result__icon svg { color: #4ADE80; }
+    .mc-result--no .mc-result__icon svg { color: #F87171; }
+
+    /* req card icon */
+    .req-card__icono svg { width: 40px; height: 40px; }
+
+
+    .req-card__check {
+      color: #4ADE80;
+      margin-bottom: 6px;
+    }
+    .req-card__check svg { width: 20px; height: 20px; }
+</style>
 </head>
 <body>
 
@@ -964,24 +1098,32 @@
         <span style="color:var(--violeta-xs); font-size:15px;">Habla con un especialista educativo y descubre si el programa se adapta a las necesidades de tu hijo.</span>
       </p>
 
-      <div class="hero__video">
-        <iframe
-          src="https://www.youtube.com/embed/6oMHzv8ip-I?rel=0&modestbranding=1"
-          title="El programa que entrena la forma de aprender de tu hijo — Evolucione"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen>
-        </iframe>
+      <div class="hero__video" id="hero-video-wrap">
+        <div class="video-poster" id="video-poster" onclick="loadHeroVideo()">
+          <img
+            src="https://img.youtube.com/vi/6oMHzv8ip-I/maxresdefault.jpg"
+            alt="Ver presentación de Evolucione"
+            loading="eager"
+          />
+          <div class="video-play-btn" aria-label="Reproducir video">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+          <div class="video-play-label">Ver presentación del programa</div>
+        </div>
       </div>
 
       <!-- ─── REQUISITOS (debajo del video) ─── -->
       <div style="width:100%; margin:32px 0 8px; text-align:left;">
-        <span class="pill" style="margin-bottom:14px; display:inline-block;">Antes de agendar</span>
-        <p style="font-size:15px; color:var(--texto-suave); margin-bottom:20px;">Evolucione no es para todos los niños. Revisa estos 3 requisitos antes de agendar.</p>
+        <span class="pill pill--rosa" style="margin-bottom:16px; display:inline-block;">Antes de agendar</span>
+        <h2 style="font-size:clamp(22px,4vw,32px); font-weight:800; color:#F8FAFC; letter-spacing:-0.5px; line-height:1.2; margin-bottom:8px;">Evolucione no es para todos los niños.</h2>
+        <p style="font-size:16px; color:var(--texto-suave); margin-bottom:24px; line-height:1.5;">Revisa estos 3 requisitos antes de agendar la videollamada.</p>
         <div class="req-grid">
 
         <div class="req-card req-card--ok">
-          <div class="req-card__check">✓</div>
-          <div class="req-card__icono">🗓️</div>
+          <div class="req-card__check"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg></div>
+          <div class="req-card__icono">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm0 2c-3.33 0-10 1.67-10 5v2h20v-2c0-3.33-6.67-5-10-5z"/></svg>
+          </div>
           <h3 class="req-card__titulo">Tiene 8 años o más</h3>
           <p class="req-card__desc">
             El programa está diseñado para niños a partir de 8 años. Si tu hijo aún no cumple esa edad, puede registrarse en lista de espera para el grupo de su rango.
@@ -990,8 +1132,10 @@
         </div>
 
         <div class="req-card req-card--ok">
-          <div class="req-card__check">✓</div>
-          <div class="req-card__icono">💻</div>
+          <div class="req-card__check"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg></div>
+          <div class="req-card__icono">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h16c1.1 0 2 .9 2 2v10H2V6c0-1.1.9-2 2-2zm-4 13h24l-2 2H2l-2-2z"/></svg>
+          </div>
           <h3 class="req-card__titulo">Tiene computadora, laptop o tablet</h3>
           <p class="req-card__desc">
             Las clases son en vivo por videollamada. Tu hijo necesita un dispositivo propio — computadora, laptop o tablet — con conexión a internet estable. El celular no es suficiente.
@@ -1000,8 +1144,10 @@
         </div>
 
         <div class="req-card req-card--ok">
-          <div class="req-card__check">✓</div>
-          <div class="req-card__icono">📶</div>
+          <div class="req-card__check"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg></div>
+          <div class="req-card__icono">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><path d="M1 9l2 2c5-5 13-5 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z"/></svg>
+          </div>
           <h3 class="req-card__titulo">Tiene buena conexión a internet</h3>
           <p class="req-card__desc">
             Las sesiones son interactivas en tiempo real. Se necesita una conexión estable que soporte videollamada sin cortes. Wifi de casa o datos móviles con buena señal funcionan bien.
@@ -1055,21 +1201,21 @@
         </p>
         <div class="videollamada-grid">
           <div style="background:rgba(124,58,237,0.10); border:1px solid rgba(139,92,246,0.25); border-radius:10px; padding:20px 18px; display:flex; gap:14px; align-items:flex-start;">
-            <span style="font-size:24px; flex-shrink:0;">🔍</span>
+            <span style="flex-shrink:0; color:rgba(255,255,255,0.7);"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg></span>
             <div>
               <p style="font-size:14px; font-weight:700; color:var(--violeta-lt); margin-bottom:5px;">Evaluamos el perfil de tu hijo</p>
               <p style="font-size:13px; color:var(--texto-suave); line-height:1.55;">Nivel de lectura, hábitos de estudio y las dificultades concretas que enfrenta hoy.</p>
             </div>
           </div>
           <div style="background:rgba(124,58,237,0.10); border:1px solid rgba(139,92,246,0.25); border-radius:10px; padding:20px 18px; display:flex; gap:14px; align-items:flex-start;">
-            <span style="font-size:24px; flex-shrink:0;">✅</span>
+            <span style="flex-shrink:0; color:rgba(255,255,255,0.7);"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg></span>
             <div>
               <p style="font-size:14px; font-weight:700; color:var(--violeta-lt); margin-bottom:5px;">Te decimos si el programa es para él</p>
               <p style="font-size:13px; color:var(--texto-suave); line-height:1.55;">Sin rodeos. Si el perfil no encaja, te lo decimos antes de que tomes cualquier decisión.</p>
             </div>
           </div>
           <div style="background:rgba(124,58,237,0.10); border:1px solid rgba(139,92,246,0.25); border-radius:10px; padding:20px 18px; display:flex; gap:14px; align-items:flex-start;">
-            <span style="font-size:24px; flex-shrink:0;">🗓️</span>
+            <span style="flex-shrink:0; color:rgba(255,255,255,0.7);"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/></svg></span>
             <div>
               <p style="font-size:14px; font-weight:700; color:var(--violeta-lt); margin-bottom:5px;">Agendamos la videollamada de inicio</p>
               <p style="font-size:13px; color:var(--texto-suave); line-height:1.55;">Si el programa es el indicado, coordinamos directamente en esa misma llamada.</p>
@@ -1099,19 +1245,19 @@
 
       <div class="problemas__grid">
         <div class="prob-card">
-          <span class="prob-card__icon">📚</span>
+          <span class="prob-card__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-6 16l-3-3-3 3V4h6v14z"/></svg></span>
           <p class="prob-card__texto">Ha perdido el interés por aprender</p>
         </div>
         <div class="prob-card">
-          <span class="prob-card__icon">😤</span>
+          <span class="prob-card__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M7 2v11h3v9l7-12h-4l4-8z"/></svg></span>
           <p class="prob-card__texto">Se frustra con facilidad al estudiar</p>
         </div>
         <div class="prob-card">
-          <span class="prob-card__icon">🙋</span>
+          <span class="prob-card__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg></span>
           <p class="prob-card__texto">Dependencia total del papá o mamá para las tareas</p>
         </div>
         <div class="prob-card">
-          <span class="prob-card__icon">😰</span>
+          <span class="prob-card__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg></span>
           <p class="prob-card__texto">Ansiedad y bloqueos cuando tiene que estudiar</p>
         </div>
       </div>
@@ -1181,7 +1327,7 @@
           <p style="font-size:14px; color:var(--texto-suave); line-height:1.4;">Velocidad de lectura<br>al finalizar el programa</p>
         </div>
         <div style="text-align:center; background:var(--bg-card); border:1px solid var(--borde); border-radius:16px; padding:32px 20px;">
-          <p style="font-size:clamp(36px,5vw,52px); font-weight:900; color:var(--violeta-lt); letter-spacing:-2px; margin-bottom:8px;">87%</p>
+          <p style="font-size:clamp(36px,5vw,52px); font-weight:900; color:var(--rosa); letter-spacing:-2px; margin-bottom:8px; text-shadow: 0 0 30px var(--rosa-glow);">87%</p>
           <p style="font-size:14px; color:var(--texto-suave); line-height:1.4;">Mejora en comprensión<br>lectora en 90 días</p>
         </div>
         <div style="text-align:center; background:var(--bg-card); border:1px solid var(--borde); border-radius:16px; padding:32px 20px;">
@@ -1354,19 +1500,19 @@
           <p class="mc-question">¿Cuántos años tiene tu hijo?</p>
           <div class="mc-options">
             <button class="mc-opt" data-step="1" data-val="Menos de 8 años" data-disq="true">
-              <span class="mc-opt__icon">🧒</span>
+              <span class="mc-opt__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm0 2c-3.33 0-10 1.67-10 5v2h20v-2c0-3.33-6.67-5-10-5z"/></svg></span>
               <span class="mc-opt__text">Menos de 8 años</span>
             </button>
             <button class="mc-opt" data-step="1" data-val="8 a 10 años">
-              <span class="mc-opt__icon">📘</span>
+              <span class="mc-opt__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg></span>
               <span class="mc-opt__text">8 a 10 años</span>
             </button>
             <button class="mc-opt" data-step="1" data-val="11 a 13 años">
-              <span class="mc-opt__icon">🎒</span>
+              <span class="mc-opt__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg></span>
               <span class="mc-opt__text">11 a 13 años</span>
             </button>
             <button class="mc-opt" data-step="1" data-val="14 años o más">
-              <span class="mc-opt__icon">🎓</span>
+              <span class="mc-opt__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/></svg></span>
               <span class="mc-opt__text">14 años o más</span>
             </button>
           </div>
@@ -1378,19 +1524,19 @@
           <p class="mc-question">¿Con qué dispositivo tomaría las clases?</p>
           <div class="mc-options">
             <button class="mc-opt" data-step="2" data-val="Computadora o laptop">
-              <span class="mc-opt__icon">💻</span>
+              <span class="mc-opt__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h16c1.1 0 2 .9 2 2v10H2V6c0-1.1.9-2 2-2zm-4 13h24l-2 2H2l-2-2z"/></svg></span>
               <span class="mc-opt__text">Computadora o laptop</span>
             </button>
             <button class="mc-opt" data-step="2" data-val="Tablet">
-              <span class="mc-opt__icon">📱</span>
+              <span class="mc-opt__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z"/></svg></span>
               <span class="mc-opt__text">Tablet</span>
             </button>
             <button class="mc-opt" data-step="2" data-val="Solo tiene celular" data-disq="true">
-              <span class="mc-opt__icon">📵</span>
+              <span class="mc-opt__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M21.19 21.19L2.81 2.81 1.39 4.22l1 1C2.15 5.57 2 5.9 2 6.25V17c0 1.1.9 2 2 2h.73l-1.22 1.22 1.41 1.41L21.19 21.19zM2 6.27L14.69 19H4c-.55 0-1-.45-1-1V6.27L2 6.27zM20 15.73V7c0-1.1-.9-2-2-2H7.27L22 19.73l-2-4z"/></svg></span>
               <span class="mc-opt__text">Solo tiene celular</span>
             </button>
             <button class="mc-opt" data-step="2" data-val="No tiene dispositivo" data-disq="true">
-              <span class="mc-opt__icon">❌</span>
+              <span class="mc-opt__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11H7v-2h10v2z"/></svg></span>
               <span class="mc-opt__text">No tiene dispositivo</span>
             </button>
           </div>
@@ -1402,19 +1548,19 @@
           <p class="mc-question">¿Cuál es la situación de tu hijo hoy?</p>
           <div class="mc-options">
             <button class="mc-opt" data-step="3" data-val="Le cuesta concentrarse y estudiar solo">
-              <span class="mc-opt__icon">😤</span>
+              <span class="mc-opt__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/></svg></span>
               <span class="mc-opt__text">Le cuesta concentrarse y estudiar solo</span>
             </button>
             <button class="mc-opt" data-step="3" data-val="Lee despacio y no comprende bien">
-              <span class="mc-opt__icon">📖</span>
+              <span class="mc-opt__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M21 5c-1.11-.35-2.33-.5-3.5-.5-1.95 0-4.05.4-5.5 1.5-1.45-1.1-3.55-1.5-5.5-1.5S2.45 4.9 1 6v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1zm0 13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V8c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5v11.5z"/></svg></span>
               <span class="mc-opt__text">Lee despacio y no comprende bien</span>
             </button>
             <button class="mc-opt" data-step="3" data-val="Depende mucho de papá o mamá para las tareas">
-              <span class="mc-opt__icon">🙋</span>
+              <span class="mc-opt__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg></span>
               <span class="mc-opt__text">Depende mucho de papá o mamá para las tareas</span>
             </button>
             <button class="mc-opt" data-step="3" data-val="Quiero que mejore aunque ya le va bien">
-              <span class="mc-opt__icon">🚀</span>
+              <span class="mc-opt__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M9.19 6.35c-2.04 2.29-3.44 5.58-3.57 5.89L2 10.69l4.05-4.05c.47-.47 1.11-.64 1.72-.5l1.42.21zM11.17 17.96c.31-.13 3.58-1.53 5.87-3.57l.21 1.41c.14.61-.03 1.26-.5 1.72l-4.05 4.05-1.53-3.61zm6.49-1.37c2.04-2.62 3.04-5.73 3.25-7.66.28-2.54-.51-4.98-2.34-6.81-1.83-1.83-4.27-2.61-6.81-2.33-1.93.21-5.04 1.21-7.66 3.25-.16.12-.16.35.01.48l11.07 11.07c.13.17.36.17.48 0zM13.5 8c-.83 0-1.5-.67-1.5-1.5S12.67 5 13.5 5 15 5.67 15 6.5 14.33 8 13.5 8zm-5.48 9.26L4.98 21 3 19.02l3.74-3.04 1.28 1.28z"/></svg></span>
               <span class="mc-opt__text">Quiero que mejore aunque ya le va bien</span>
             </button>
           </div>
@@ -1426,19 +1572,19 @@
           <p class="mc-question">¿Cuándo podría tomar las clases tu hijo?</p>
           <div class="mc-options">
             <button class="mc-opt" data-step="4" data-val="Lunes a viernes en la tarde">
-              <span class="mc-opt__icon">🌅</span>
+              <span class="mc-opt__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M6.76 4.84l-1.8-1.79-1.41 1.41 1.79 1.79 1.42-1.41zM4 10.5H1v2h3v-2zm9-9.95h-2V3.5h2V.55zm7.45 3.91l-1.41-1.41-1.79 1.79 1.41 1.41 1.79-1.79zm-3.21 13.7l1.79 1.8 1.41-1.41-1.8-1.79-1.4 1.4zM20 10.5v2h3v-2h-3zm-8-5c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm-1 16.95h2V19.5h-2v2.95zm-7.45-3.91l1.41 1.41 1.79-1.8-1.41-1.41-1.79 1.8z"/></svg></span>
               <span class="mc-opt__text">Lunes a viernes en la tarde</span>
             </button>
             <button class="mc-opt" data-step="4" data-val="Lunes a viernes en la mañana">
-              <span class="mc-opt__icon">☀️</span>
+              <span class="mc-opt__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-2.98 0-5.4-2.42-5.4-5.4 0-1.81.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z"/></svg></span>
               <span class="mc-opt__text">Lunes a viernes en la mañana</span>
             </button>
             <button class="mc-opt" data-step="4" data-val="Fines de semana">
-              <span class="mc-opt__icon">📅</span>
+              <span class="mc-opt__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/></svg></span>
               <span class="mc-opt__text">Fines de semana</span>
             </button>
             <button class="mc-opt" data-step="4" data-val="Horario flexible">
-              <span class="mc-opt__icon">🕐</span>
+              <span class="mc-opt__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm3.5-9l-4.5 4.5-2-2-1.42 1.42L11 18.33 16.92 12.5 15.5 11z"/></svg></span>
               <span class="mc-opt__text">Horario flexible, cualquier momento</span>
             </button>
           </div>
@@ -1446,7 +1592,7 @@
 
         <!-- RESULTADO: SI CALIFICA -->
         <div class="mc-step mc-result mc-result--si" id="mc-result-si" hidden>
-          <div class="mc-result__icon">🎉</div>
+          <div class="mc-result__icon"><svg width="52" height="52" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg></div>
           <p class="mc-result__title">¡Tu hijo puede entrar al programa!</p>
           <p class="mc-result__desc">Basado en tus respuestas, Evolucione se adapta perfectamente a su situación. Un especialista educativo te confirmará esto en la videollamada.</p>
           <a class="mc-wa-btn" id="mc-wa-link" href="#" target="_blank" rel="noopener">
@@ -1458,7 +1604,7 @@
 
         <!-- RESULTADO: NO CALIFICA -->
         <div class="mc-step mc-result mc-result--no" id="mc-result-no" hidden>
-          <div class="mc-result__icon">😔</div>
+          <div class="mc-result__icon"><svg width="52" height="52" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z"/></svg></div>
           <p class="mc-result__title">Por ahora el programa no es para ti</p>
           <p class="mc-result__desc">El programa requiere que el niño tenga al menos 8 años y acceso a una computadora, laptop o tablet con buena internet. Si en el futuro cambia esa situación, con gusto te atendemos.</p>
           <button class="mc-btn-close-result" id="mc-close-no-btn">Cerrar</button>
@@ -1496,6 +1642,13 @@
 
   <!-- ─── JAVASCRIPT ────────────────────────────────────────────── -->
   <script>
+  /* ── VIDEO POSTER PLAY ──────────────────────── */
+  function loadHeroVideo() {
+    var wrap = document.getElementById('hero-video-wrap');
+    wrap.classList.add('hero__video-active');
+    wrap.innerHTML = '<iframe src="https://www.youtube.com/embed/6oMHzv8ip-I?autoplay=1&rel=0&modestbranding=1" title="Evolucione — El programa que entrena la forma de aprender de tu hijo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+  }
+
   (function () {
     'use strict';
 
